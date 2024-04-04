@@ -1,0 +1,51 @@
+@font-face {
+    font-family: 'Branda-yolq';
+    src: url('./Branda-yolq.woff') format('woff');
+    font-weight: 600;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: 'Josefin-sans';
+    src: url('./Assets/Josefin_Sans/JosefinSans-VariableFont_wght.woff') format('woff');
+    font-weight: 600;
+    font-style: normal;
+  }
+
+  iframe
+    {
+        display: none;
+    }
+
+  h1 {
+    font-family: 'Branda-yolq';
+    text-align: center;
+    font-size: 3rem;
+    padding-bottom: 10px;
+    border-bottom: 2px solid;
+  }
+
+  .container {
+    display: flex;
+    height: 85vh;
+  }
+  .container nav {
+    font-family: 'Josefin-sans';
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: 10px;
+    text-align: center;
+    padding-right: 6vw;
+    border-right: 2px solid;
+  }
+  .container nav button {
+    border-radius: 10px;
+    background-color: white;
+    padding: 5%;
+    border-left: 0px;
+    border-right: 0px;
+  }
+  .container div {
+    flex: 5;
+  }
