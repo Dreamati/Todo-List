@@ -3,21 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>TODO List</title>
 </head>
 <body>
     <h1>ToDO App</h1>
     <div class="container">
-        <nav>
-            <h2>Home</h2>
-            <button><img src="<%= require('./Assets/icons/all-tasks.svg')%>" />All Tasks</button>
-            <button><img src="<%= require('./Assets/icons/today.svg')%>" />Today</button>
-            <button><img src="<%= require('./Assets/icons/week.svg')%>" />This Week</button>
-            <button><img src="<%= require('./Assets/icons/bookmark.svg')%>" />Important</button>
-
-            <h2>Projects</h2>
-            <button id="project-add"> <img src="<%= require('./Assets/icons/add.svg')%>" />Add Projects</button>
-        </nav>
+        <div class="navbar">
+            <nav>
+                <h2>Home</h2>
+                <button><img src="<%= require('./Assets/icons/all-tasks.svg')%>" />All Tasks</button>
+                <button><img src="<%= require('./Assets/icons/today.svg')%>" />Today</button>
+                <button><img src="<%= require('./Assets/icons/week.svg')%>" />This Week</button>
+                <button ><img src="<%= require('./Assets/icons/bookmark.svg')%>" />Important</button>
+            </nav>
+            <nav class="projects">
+                <h2>Projects</h2>
+                <div id="projects-list"></div>
+                <button id="project-add"> <img src="<%= require('./Assets/icons/add.svg')%>" />Add Projects</button>
+            </nav>
+        </div>
         <div class="content">
 
         </div>
