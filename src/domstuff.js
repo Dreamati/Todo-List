@@ -1,20 +1,98 @@
-import {Projects, Task} from './projects.js'
+import {Projects, Task, projectArray} from './projects.js'
 
 const projectButton = document.getElementById('project-add');
 const projectList = document.getElementById("projects-list");
-const Content = document.getElementById("content")
+const Content = document.getElementById("content");
 
 const Render = {
-    projectSidebar: function(projects){
+    displaySidebar: function(){
         
         while (projectList.firstChild)
         {
             projectList.removeChild(projectList.firstChild)
         }
-        projects.array.forEach(element => {
-            newButton = document.createElement('button'); 
-            newButton.textContent = element;
-            projectList.append(newButton);
+        projectArray.forEach(function(element){
+            const buttonContainer = document.createElement('div');
+            buttonContainer.classList.add('button-container');
+
+            const newButton = document.createElement('button'); 
+            newButton.textContent = element.projectName;
+            newButton.classList.add('project-name-button');
+
+            const delButton = document.createElement('button'); //del button
+            delButton.classList.add('del-button');
+
+            delButton.textContent = 'x';
+
+            delButton.addEventListener('click', function(){
+                element.deleteproject(element);
+                Render.displaySidebar();
+            })
+            const editButton = document.createElement('button'); //edit button
+            
+            editButton.textContent = '+';
+            editButton.classList.add('edit-button')
+            editButton.addEventListener('click', function(){
+                element.editForm = true;
+                Render.displaySidebar();
+            })
+
+            if(element.editForm === false){
+                buttonContainer.append(newButton, editButton, delButton);
+                newButton.textContent = element.projectName;
+            }
+            else{
+                const projectForm = document.createElement('form');
+        
+                const buttonDiv = document.createElement('div');
+                buttonDiv.classList.add('button-div');
+
+                const inputForm = document.createElement('input');
+                inputForm.value = element.projectName;
+                const submitForm = document.createElement('button');
+
+                submitForm.type = 'button';
+                submitForm.textContent = 'Update';
+                submitForm.setAttribute('type', 'button');
+                submitForm.setAttribute('id', 'navform-submit');
+                
+
+                
+                inputForm.setAttribute('class', 'nav-input')
+
+                const cancelForm = document.createElement('button')
+                cancelForm.textContent = 'Cancel';
+                cancelForm.addEventListener('click',function(){
+                    element.editForm = false;
+                    Render.formDisplay();
+                })
+
+                cancelForm.setAttribute('type', 'button');
+                cancelForm.setAttribute('id', 'navform-cancel');
+                buttonDiv.append(submitForm, cancelForm);
+                projectForm.append(inputForm, buttonDiv);
+                
+                buttonContainer.append(projectForm);
+
+                submitForm.addEventListener('click',function(){
+                    element.projectName = inputForm.value;
+                    element.editForm = false;
+                    console.log(element);
+                    
+                    Render.displaySidebar();
+                })
+
+            }
+            
+
+            newButton.addEventListener('click', function(){
+                Render.projectIndividual(element);
+            })
+
+            if(element.projectName){
+                projectList.append(buttonContainer);
+            }
+            
         });
         
 
@@ -47,12 +125,8 @@ const Render = {
             Content.append(taskContainer);
 
         })
-    }
-}
-
-const domStuff = function(){
-    
-    projectButton.addEventListener('click', function(){
+    },
+    formDisplay: function(){
         const projectForm = document.createElement('form');
         
         const buttonDiv = document.createElement('div');
@@ -81,19 +155,18 @@ const domStuff = function(){
         projectList.append(projectForm);
 
         submitForm.addEventListener('click', function(){
-            const projectName = document.createElement('button');
-            projectName.textContent = inputForm.value;
             
             if(inputForm.value){
-                projectList.append(projectName);
+                
+                
                 const tempProject = new Projects();
-                tempProject.projectName = projectName.textContent;
+                
+                tempProject.projectName = inputForm.value;
                 tempProject.tasks = [{taskName: 'test', taskDescription: 'test'}]; //For Testing
+                projectArray.push(tempProject);
 
-                projectName.addEventListener('click', function(){
-                    Render.projectIndividual(tempProject);
-                })
-    
+                Render.displaySidebar();
+                
             }
             
             projectList.removeChild(projectForm);
@@ -102,6 +175,13 @@ const domStuff = function(){
         cancelForm.addEventListener('click', function(){
             projectList.removeChild(projectForm)
         })
+    }
+}
+
+const domStuff = function(){
+    
+    projectButton.addEventListener('click', function(){
+        Render.formDisplay();
         
     })
 }
