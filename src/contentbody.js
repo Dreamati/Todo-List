@@ -3,6 +3,7 @@ const Content = document.getElementById("content");
 import {Projects, Task, projectArray} from './projects.js'
 
 const contentBody = (function(){
+
 const projectIndividual = function(project){
     while (Content.firstChild) {
         Content.removeChild(Content.firstChild);
@@ -20,37 +21,58 @@ const projectIndividual = function(project){
 
     ;
     
-    project.tasks.forEach((task)=>{
-        
-        const taskContainer = document.createElement('div'); //task Container
-        taskDisplayDiv.append(taskContainer)
+project.tasks.forEach((task)=>{
+    
+    const taskContainer = document.createElement('div'); //task Container
+    taskDisplayDiv.append(taskContainer)
 
-        const taskCheckbox = document.createElement('input');
-        taskCheckbox.setAttribute('type', 'checkbox');
-        taskCheckbox.classList.add('task-checkbox');
+    const taskCheckbox = document.createElement('input');
+    taskCheckbox.setAttribute('type', 'checkbox');
+    taskCheckbox.classList.add('task-checkbox');
 
-        const taskName = document.createElement('h3'); //task Name
-        taskName.textContent = task.taskName;
+    const taskName = document.createElement('h3'); //task Name
+    taskName.textContent = task.taskName;
 
-        const taskDescription = document.createElement('p');
-        taskDescription.textContent = task.taskDescription;
+    const taskDescription = document.createElement('p');
+    taskDescription.textContent = task.taskDescription;
 
-        const taskDate = document.createElement('p');
-        taskDate.textContent = task.dueDate;
+    const taskDate = document.createElement('p');
+    taskDate.textContent = task.dueDate;
 
-        taskContainer.append(taskCheckbox, taskName, taskDescription, taskDate);
-        taskContainer.classList.add('task-container');
+    const changeButton = document.createElement('div'); //container
 
-        
-        // taskDisplayDiv.append(taskDescription);
-        // taskDisplayDiv.append(taskDate);
+    const delButton = document.createElement('button');//delete button for tasks
+    delButton.textContent = 'x';
 
-        // taskDisplayDiv.append(taskContainer);
-        
+    delButton.addEventListener('click', function(){
+        const index = project.tasks.indexOf(task);
+        if (index > -1) { // only splice array when item is found
+            project.tasks.splice(index, 1); // 2nd parameter means remove one item only
+        }
+        projectIndividual(project);
+    })
 
-    });
+
+    const editButton = document.createElement('button');//edit button for tasks
+    editButton.textContent = '+';
+    editButton.addEventListener('click', function(){
+        task.editForm = true;
+        projectIndividual(project);
+    })
+
+    if(!task.editForm){
+        changeButton.append(editButton, delButton)
+        taskContainer.append(taskCheckbox, taskName, taskDescription, taskDate, changeButton);
+    }
+    else {
+        taskContainer.append(editFormButton(task, project));
+    }
+    taskContainer.classList.add('task-container');        
+
+});
     addTaskButton(project);
 };
+
 const addTaskButton = function(project){
     const taskButtonDiv = document.getElementById('task-button-div');
 
@@ -64,29 +86,30 @@ const addTaskButton = function(project){
     
 
 };
+
 function taskCreateForm(project){
     const taskForm = document.createElement('form');
     taskForm.id = 'myForm'; // Assign an ID for later reference
 
   // Create input elements
-  const titleInput = document.createElement('input');
-  titleInput.type = 'text';
-  titleInput.name = 'title';
-  titleInput.placeholder = 'Enter title';
+    const titleInput = document.createElement('input');
+    titleInput.type = 'text';
+    titleInput.name = 'title';
+    titleInput.placeholder = 'Enter title';
 
-  const descriptionInput = document.createElement('textarea');
-  descriptionInput.name = 'description';
-  descriptionInput.placeholder = 'Enter description';
+    const descriptionInput = document.createElement('textarea');
+    descriptionInput.name = 'description';
+    descriptionInput.placeholder = 'Enter description';
 
-  const dateInput = document.createElement('input');
-  dateInput.type = 'date';
-  dateInput.name = 'date';
+    const dateInput = document.createElement('input');
+    dateInput.type = 'date';
+    dateInput.name = 'date';
 
-  // Create buttons
-  const submitButton = document.createElement('button');
-  submitButton.type = 'button';
-  submitButton.textContent = 'Submit';
-  submitButton.addEventListener('click',function(){
+    // Create buttons
+    const submitButton = document.createElement('button');
+    submitButton.type = 'button';
+    submitButton.textContent = 'Submit';
+    submitButton.addEventListener('click',function(){
         const newTask = new Task(titleInput.value, descriptionInput.value, dateInput.value);
         project.tasks.push(newTask);
         console.log(project);
@@ -94,23 +117,73 @@ function taskCreateForm(project){
 
   })
 
-  const cancelButton = document.createElement('button');
-  cancelButton.type = 'button';
-  cancelButton.textContent = 'Cancel';
-  cancelButton.addEventListener('click', () => {
-    Content.removeChild(taskForm);
-    // Handle cancel action (e.g., remove the form or prompt for confirmation)
-  });
+    const cancelButton = document.createElement('button');
+    cancelButton.type = 'button';
+    cancelButton.textContent = 'Cancel';
+    cancelButton.addEventListener('click', () => {
+        Content.removeChild(taskForm);
+        // Handle cancel action (e.g., remove the form or prompt for confirmation)
+    });
 
-  // Append elements to the form
-  taskForm.appendChild(titleInput);
-  taskForm.appendChild(descriptionInput);
-  taskForm.appendChild(dateInput);
-  taskForm.appendChild(submitButton);
-  taskForm.appendChild(cancelButton);
-  Content.append(taskForm);
+    // Append elements to the form
+    taskForm.appendChild(titleInput);
+    taskForm.appendChild(descriptionInput);
+    taskForm.appendChild(dateInput);
+    taskForm.appendChild(submitButton);
+    taskForm.appendChild(cancelButton);
+    Content.append(taskForm);
 
 }
+
+const editFormButton = function(task, project){
+    const taskForm = document.createElement('form');
+    taskForm.id = 'edit-task-form'; // Assign an ID for later reference
+
+  // Create input elements
+    const titleInput = document.createElement('input');
+    titleInput.type = 'text';
+    titleInput.name = 'title';
+    titleInput.value = task.taskName;
+
+    const descriptionInput = document.createElement('textarea');
+    descriptionInput.name = 'description';
+    descriptionInput.value = task.taskDescription;
+
+    const dateInput = document.createElement('input');
+    dateInput.type = 'date';
+    dateInput.name = 'date';
+    dateInput.value = task.dueDate;
+
+    // Create buttons
+    const submitButton = document.createElement('button');
+    submitButton.type = 'button';
+    submitButton.textContent = 'Submit';
+    submitButton.addEventListener('click',function(){
+        task.taskName = titleInput.value;
+        task.taskDescription = descriptionInput.value;
+        task.dueDate =  dateInput.value;
+        task.editForm = false;
+        projectIndividual(project);
+
+  })
+
+    const cancelButton = document.createElement('button');
+    cancelButton.type = 'button';
+    cancelButton.textContent = 'Cancel';
+    cancelButton.addEventListener('click', () => {
+        task.editForm = false;
+        projectIndividual(project);
+    });
+
+    // Append elements to the form
+    taskForm.appendChild(titleInput);
+    taskForm.appendChild(descriptionInput);
+    taskForm.appendChild(dateInput);
+    taskForm.appendChild(submitButton);
+    taskForm.appendChild(cancelButton);
+    return (taskForm);
+}
+
 return({projectIndividual})
 })()
 

@@ -147,7 +147,7 @@
 .task-container {
   display: flex;
   align-items: center;
-  height: ;
+  height: auto;
 }
 .task-container > h3 {
   flex: 1;
@@ -158,6 +158,18 @@
 .task-container > p {
   flex: 1;
   font-family: 'monospace';
+}
+.task-container > div {
+  flex: 0.5;
+  height: auto;
+  width: 2rem;
+}
+.task-container > div button {
+  background-color: white;
+  border: 2px solid;
+  margin: 5%;
+  font-size: large;
+
 }
 #task-button-div .task-button {
   width: 100%;
@@ -176,7 +188,7 @@
   background-color: yellow;
 }
 
-form#myForm {
+form#myForm, form#edit-task-form {
   display: flex; /* Arrange elements horizontally */
   flex-direction: column; /* Stack elements vertically */
   width: 100%; /* Adjust width as needed */
@@ -187,15 +199,18 @@ form#myForm {
   background-color: #f5f5f5;
 }
 
-form#myForm label {
+form#myForm label, form#edit-task-form label {
   display: block; /* Make labels appear on separate lines */
   margin-bottom: 5px;
   font-weight: bold;
 }
 
 form#myForm input[type="text"],
+form#edit-task-form input[type="text"],
 form#myForm textarea,
-form#myForm input[type="date"] {
+form#edit-task-form textarea,
+form#myForm input[type="date"],
+form#edit-task-form input[type="date"] {
   width: 90%; /* Set width for input fields */
   padding: 10px;
   border: 1px solid #ccc;

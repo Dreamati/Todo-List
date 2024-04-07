@@ -30,6 +30,7 @@ class Task {
         this.taskDescription = taskDescription;
         this.dueDate = dueDate;
         this.isComplete = false;
+        this.editForm = false;
 
     }
 }
