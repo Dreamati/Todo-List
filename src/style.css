@@ -55,7 +55,7 @@
     font-size: 2rem;
     
   }
-  .container button {
+  .container nav button {
     font-size: 1.5rem;
     border-radius: 10px;
     background-color: white;
@@ -139,4 +139,92 @@
     width: 1rem;
     padding: 0%;
   }
-  /*  */
+  /*  Content Page starts here*/
+#task-display {
+  display: flex;
+  flex-direction: column;
+}
+.task-container {
+  display: flex;
+  align-items: center;
+  height: ;
+}
+.task-container > h3 {
+  flex: 1;
+  font-family: 'Josefin-sans', 'monospace';
+  font-size: larger;
+  padding: 0px 5%;
+}
+.task-container > p {
+  flex: 1;
+  font-family: 'monospace';
+}
+#task-button-div .task-button {
+  width: 100%;
+  height: 3rem;
+  /* padding: 2vh 20px; */
+  background-color: rgb(231, 255, 193);
+  text-align: center;
+  padding: 4px 20px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  margin: 5px 0;
+  font-size: x-large;
+}
+#task-button-div .task-button:hover {
+  background-color: yellow;
+}
+
+form#myForm {
+  display: flex; /* Arrange elements horizontally */
+  flex-direction: column; /* Stack elements vertically */
+  width: 100%; /* Adjust width as needed */
+  margin: 0 auto; /* Center the form horizontally */
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #f5f5f5;
+}
+
+form#myForm label {
+  display: block; /* Make labels appear on separate lines */
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+form#myForm input[type="text"],
+form#myForm textarea,
+form#myForm input[type="date"] {
+  width: 90%; /* Set width for input fields */
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  font-size: 16px;
+}
+
+form#myForm textarea {
+  height: 100px; /* Set height for textarea */
+}
+
+form#myForm button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  margin: 5px 0;
+}
+
+form#myForm button:hover {
+  background-color: #eee;
+}
+
+form#myForm button[type="submit"] {
+  background-color: #4CAF50; /* Green for submit */
+  color: white;
+}
+
+form#myForm button[type="cancel"] {
+  background-color: #ccc; /* Gray for cancel */
+  color: black;
+}

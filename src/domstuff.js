@@ -1,8 +1,9 @@
 import {Projects, Task, projectArray} from './projects.js'
+import {contentBody} from './contentbody.js'
 
 const projectButton = document.getElementById('project-add');
 const projectList = document.getElementById("projects-list");
-const Content = document.getElementById("content");
+
 
 const Render = {
     displaySidebar: function(){
@@ -78,7 +79,7 @@ const Render = {
                     element.projectName = inputForm.value;
                     element.editForm = false;
                     console.log(element);
-                    
+                    contentBody.projectIndividual(element);
                     Render.displaySidebar();
                 })
 
@@ -86,7 +87,7 @@ const Render = {
             
 
             newButton.addEventListener('click', function(){
-                Render.projectIndividual(element);
+                contentBody.projectIndividual(element);
             })
 
             if(element.projectName){
@@ -97,35 +98,7 @@ const Render = {
         
 
     },
-    projectIndividual : function(project){
-        project.tasks.forEach((task)=>{
-            while (Content.firstChild) {
-                Content.removeChild(Content.firstChild);
-                
-            }
-            const projectNameDisplay = document.createElement('h2'); //Project Name Display
-            projectNameDisplay.textContent = project.projectName;
-            Content.append(projectNameDisplay);
-
-            const taskContainer = document.createElement('div'); //task Container
-
-            const taskName = document.createElement('h3'); //task Name
-            taskName.textContent = task.taskName;
-
-            const taskDescription = document.createElement('p');
-            taskDescription.textContent = task.taskDescription;
-
-            const taskDate = document.createElement('p');
-            taskDate.textContent = task.dueDate;
-
-            taskContainer.append(taskName);
-            taskContainer.append(taskDescription);
-            taskContainer.append(taskDate);
-
-            Content.append(taskContainer);
-
-        })
-    },
+    
     formDisplay: function(){
         const projectForm = document.createElement('form');
         
@@ -162,7 +135,7 @@ const Render = {
                 const tempProject = new Projects();
                 
                 tempProject.projectName = inputForm.value;
-                tempProject.tasks = [{taskName: 'test', taskDescription: 'test'}]; //For Testing
+                tempProject.tasks = [{taskName: 'Chest', taskDescription: 'Chest Workout', dueDate: '10-04-2024'}]; //For Testing
                 projectArray.push(tempProject);
 
                 Render.displaySidebar();

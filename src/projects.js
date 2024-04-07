@@ -28,7 +28,8 @@ class Task {
     constructor(taskName, taskDescription, dueDate){
         this.taskName = taskName;
         this.taskDescription = taskDescription;
-        this.dueDate = dueDate
+        this.dueDate = dueDate;
+        this.isComplete = false;
 
     }
 }
