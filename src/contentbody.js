@@ -25,10 +25,27 @@ project.tasks.forEach((task)=>{
     
     const taskContainer = document.createElement('div'); //task Container
     taskDisplayDiv.append(taskContainer)
+    
 
-    const taskCheckbox = document.createElement('input');
+    const taskCheckbox = document.createElement('input');//checkbox added
     taskCheckbox.setAttribute('type', 'checkbox');
     taskCheckbox.classList.add('task-checkbox');
+    if(task.isComplete)
+    {
+        taskCheckbox.checked = true;
+    }
+
+    taskCheckbox.addEventListener('change', function() { //checbox functionality
+        if (this.checked) {
+          console.log("Checkbox is checked..");
+          task.isComplete = true;
+
+        } else {
+          console.log("Checkbox is not checked..");
+          task.isComplete = false;
+        }
+        projectIndividual(project);
+      });
 
     const taskName = document.createElement('h3'); //task Name
     taskName.textContent = task.taskName;
@@ -38,6 +55,18 @@ project.tasks.forEach((task)=>{
 
     const taskDate = document.createElement('p');
     taskDate.textContent = task.dueDate;
+
+    if(task.isComplete)
+    {
+        taskName.classList.add('strike-out');
+        taskDescription.classList.add('strike-out');
+        taskDate.classList.add('strike-out');
+    }
+    else{
+        taskName.classList.remove('strike-out');
+        taskDescription.classList.remove('strike-out');
+        taskDate.classList.remove('strike-out');
+    }
 
     const changeButton = document.createElement('div'); //container
 
@@ -59,9 +88,12 @@ project.tasks.forEach((task)=>{
         task.editForm = true;
         projectIndividual(project);
     })
+    const starShape = document.createElement('input');
+    starShape.type = 'checkbox';
+    starShape.classList.add('star-shape')
 
     if(!task.editForm){
-        changeButton.append(editButton, delButton)
+        changeButton.append(starShape, editButton, delButton)
         taskContainer.append(taskCheckbox, taskName, taskDescription, taskDate, changeButton);
     }
     else {
