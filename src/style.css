@@ -1,3 +1,8 @@
+html {
+  --color: rgb(230, 252, 198);
+  --cancel: rgb(238, 150, 150);
+}
+
 @font-face {
     font-family: 'Branda-yolq';
     src: url('./Branda-yolq.woff') format('woff');
@@ -93,10 +98,10 @@
   }
 
   #navform-submit {
-    background-color: rgb(196, 236, 136);
+    background-color: var(--color);
   }
   #navform-cancel {
-    background-color: rgb(238, 150, 150);
+    background-color: var(--cancel);
   }
 
   .button-div {
@@ -191,12 +196,14 @@
 form#myForm, form#edit-task-form {
   display: flex; /* Arrange elements horizontally */
   flex-direction: column; /* Stack elements vertically */
-  width: 100%; /* Adjust width as needed */
+  width: 80%; /* Adjust width as needed */
   margin: 0 auto; /* Center the form horizontally */
   padding: 20px;
   border: 1px solid #ddd;
   border-radius: 5px;
-  background-color: #f5f5f5;
+  background-color: #ffffff;
+  justify-content: center;
+  align-items: center;
 }
 
 form#myForm label, form#edit-task-form label {
@@ -211,7 +218,7 @@ form#myForm textarea,
 form#edit-task-form textarea,
 form#myForm input[type="date"],
 form#edit-task-form input[type="date"] {
-  width: 90%; /* Set width for input fields */
+  width: 100%; /* Set width for input fields */
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 3px;
@@ -222,22 +229,27 @@ form#myForm textarea {
   height: 100px; /* Set height for textarea */
 }
 
-form#myForm button {
+form#myForm button, form#edit-task-form button {
+  width: 70%;
   padding: 10px 20px;
   border: none;
   border-radius: 3px;
   cursor: pointer;
-  margin: 5px 0;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-top: 15px;
+  background-color: var(--color);
+}
+form#myForm > :last-child, form#edit-task-form > :last-child {
+  background-color: var(--cancel);
 }
 
-form#myForm button:hover {
-  background-color: #eee;
+form#myForm button:hover, form#edit-task-form button:hover {
+  background-color: #ffffff;
+  border: 1px solid;
 }
 
-form#myForm button[type="submit"] {
-  background-color: #4CAF50; /* Green for submit */
-  color: white;
-}
+
 
 form#myForm button[type="cancel"] {
   background-color: #ccc; /* Gray for cancel */
@@ -302,4 +314,15 @@ form#myForm button[type="cancel"] {
     0% 35%,
     39% 35%
   );
+}
+
+#content h2 {
+  font-size: 3rem;
+  font-family: 'Josefin-sans','Branda-yolq';
+  padding: 1rem 3rem;
+  /* background-color: var(--color); */
+}
+/* Boomark Page Hiden */
+#bookmarked{
+  display: none;
 }

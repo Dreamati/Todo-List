@@ -8,6 +8,7 @@ import {contentBody} from './contentbody.js';
 domStuff();
 Render.renderToday();
 Render.renderAll();
+Render.renderWeek();
 
 
 

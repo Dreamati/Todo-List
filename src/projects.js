@@ -1,10 +1,11 @@
 const projectArray = [];
 
 class Projects {
-    constructor(projectName){
+    constructor(projectName, home = false){
         this.tasks = [];
         this.projectName = projectName;
         this.editForm = false;
+        this.home = home;
     }
     deleteTask(){
 
@@ -31,7 +32,20 @@ class Task {
         this.dueDate = dueDate;
         this.isComplete = false;
         this.editForm = false;
+        this.isDeleted = false;
 
+    }
+    removeTask(){
+        projectArray.forEach(function(project){
+            project.tasks.forEach(function(task){
+                if(task.isDeleted){
+                    const index = project.tasks.indexOf(task);
+                    if (index > -1) { // only splice array when item is found
+                        project.tasks.splice(index, 1); // 2nd parameter means remove one item only
+                    }
+                }
+            })
+        })
     }
 }
 

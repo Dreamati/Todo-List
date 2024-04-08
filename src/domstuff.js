@@ -135,7 +135,7 @@ const Render = {
                 const tempProject = new Projects();
                 
                 tempProject.projectName = inputForm.value;
-                tempProject.tasks = [{taskName: 'Chest', taskDescription: 'Chest Workout', dueDate: '10-04-2024', editForm:false}]; //For Testing
+                // tempProject.tasks = [{taskName: 'Chest', taskDescription: 'Chest Workout', dueDate: '10-04-2024', editForm:false}]; //For Testing
                 projectArray.push(tempProject);
 
                 Render.displaySidebar();
